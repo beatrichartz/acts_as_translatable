@@ -2,8 +2,8 @@ module ActsAsTranslatable
   module ClassMethods
     def acts_as_translatable_on(*fields)
       after_initialize :translations
-      after_save :save_translations
-      has_many :record_translations, :foreign_key => :translatable_id, :conditions => { :translatable_type => name}, :dependent => :destroy
+      after_save :save_translations      
+      has_many :record_translations, -> { where(translatable_type: name) }, foreign_key: :translatable_id, dependent: :destroy
       default_scope :include => :record_translations
       
       # loop through fields to define methods such as "name" and "description"
