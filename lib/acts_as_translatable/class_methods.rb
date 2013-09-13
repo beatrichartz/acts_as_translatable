@@ -4,7 +4,7 @@ module ActsAsTranslatable
       after_initialize :translations
       after_save :save_translations      
       has_many :record_translations, -> { where(translatable_type: name) }, foreign_key: :translatable_id, dependent: :destroy
-      default_scope :include => :record_translations
+      default_scope -> { includes(:record_translations) }
       
       # loop through fields to define methods such as "name" and "description"
       fields.each do |field|
