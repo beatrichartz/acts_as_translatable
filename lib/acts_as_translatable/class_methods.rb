@@ -59,7 +59,7 @@ module ActsAsTranslatable
         translations.each_pair do |locale, fields|
           fields.each_pair do |field, content|
             # create translation record
-            record_translations.create :translatable_field => field, :locale => locale.to_s, :content => content unless content.blank?
+            record_translations.create :translatable_field => field, :translatable_type => self.class.name, :locale => locale.to_s, :content => content unless content.blank?
           end
         end
       end
